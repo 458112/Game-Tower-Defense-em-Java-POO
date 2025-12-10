@@ -2,84 +2,111 @@ package objetos;
 
 public class Torre {
 
-    private int x, y, id, tipoTorre, cdTick, dano;
-    private float alcance, tempoRecarga;
+	private int x, y, id, tipoTorre, cdTick, dano;
+	private float alcance, tempoRecarga;
+	private int tier;
 
-    public Torre(int x, int y, int id, int tipoTorre) {
-        this.x = x;
-        this.y = y;
-        this.id = id;
-        this.tipoTorre = tipoTorre;
-        definirDanoInicial();
-        definirAlcancePadrao();
-        definirTempoRecargaPadrao();
-    }
+	public Torre(int x, int y, int id, int tipoTorre) {
+		this.x = x;
+		this.y = y;
+		this.id = id;
+		this.tipoTorre = tipoTorre;
+		tier = 1;
+		definirDanoInicial();
+		definirAlcancePadrao();
+		definirTempoRecargaPadrao();
+	}
 
-    public void atualizar() {
-        cdTick++;
-    }
+	public void atualizar() {
+		cdTick++;
+	}
 
-    public boolean isCooldownOver() {
-        return cdTick >= tempoRecarga;
-    }
+	public void atualizarTorre() {
+		this.tier++;
 
-    public void resetCooldown() {
-        cdTick = 0;
-    }
+		switch (tipoTorre) {
+		case ajuda.Constantes.Torres.ARQUEIRO:
+			dano += 2;
+			alcance += 20;
+			tempoRecarga -= 5;
+			break;
+		case ajuda.Constantes.Torres.CANHAO:
+			dano += 5;
+			alcance += 20;
+			tempoRecarga -= 15;
+			break;
+		case ajuda.Constantes.Torres.MAGO:
+			alcance += 20;
+			tempoRecarga -= 10;
+			break;
+		}
+	}
 
-    private void definirTempoRecargaPadrao() {
-        tempoRecarga = ajuda.Constantes.Torres.GetTempoRecargaPadrao(tipoTorre);
-    }
+	public boolean isCooldownOver() {
+		return cdTick >= tempoRecarga;
+	}
 
-    private void definirAlcancePadrao() {
-        alcance = ajuda.Constantes.Torres.GetAlcancePadrao(tipoTorre);
-    }
+	public void resetCooldown() {
+		cdTick = 0;
+	}
 
-    private void definirDanoInicial() {
-        dano = ajuda.Constantes.Torres.GetDanoInicial(tipoTorre);
-    }
+	private void definirTempoRecargaPadrao() {
+		tempoRecarga = ajuda.Constantes.Torres.GetTempoRecargaPadrao(tipoTorre);
+	}
 
-    public int getX() {
-        return x;
-    }
+	private void definirAlcancePadrao() {
+		alcance = ajuda.Constantes.Torres.GetAlcancePadrao(tipoTorre);
+	}
 
-    public void setX(int x) {
-        this.x = x;
-    }
+	private void definirDanoInicial() {
+		dano = ajuda.Constantes.Torres.GetDanoInicial(tipoTorre);
+	}
 
-    public int getY() {
-        return y;
-    }
+	public int getX() {
+		return x;
+	}
 
-    public void setY(int y) {
-        this.y = y;
-    }
+	public void setX(int x) {
+		this.x = x;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getY() {
+		return y;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setY(int y) {
+		this.y = y;
+	}
 
-    public int getTipoTorre() {
-        return tipoTorre;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setTipoTorre(int tipoTorre) {
-        this.tipoTorre = tipoTorre;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public int getDano() {
-        return dano;
-    }
+	public int getTipoTorre() {
+		return tipoTorre;
+	}
 
-    public float getAlcance() {
-        return alcance;
-    }
+	public void setTipoTorre(int tipoTorre) {
+		this.tipoTorre = tipoTorre;
+	}
 
-    public float getTempoRecarga() {
-        return tempoRecarga;
-    }
+	public int getDano() {
+		return dano;
+	}
+
+	public float getAlcance() {
+		return alcance;
+	}
+
+	public float getTempoRecarga() {
+		return tempoRecarga;
+	}
+	
+	public int getTier() {
+		return tier;
+	}
 }
